@@ -41,3 +41,13 @@ $config['tarball_cache_time'] = intval(%%%TARBALL_CACHE_TIME%%%);
 
 // The maximum number of active invitation keys per account.
 $config['max_invitation_keys'] = intval(%%%MAX_INVITATION_KEYS%%%);
+
+// SMTP mail settings if enabled
+if (getenv('SMTP_ENABLED') === 'true') {
+    $config['protocol'] = %%%SMTP_PROTOCOL%%%;
+    $config['smtp_host'] = %%%SMTP_HOST%%%;
+    $config['smtp_port'] = intval(%%%SMTP_PORT%%%);
+    $config['smtp_crypto'] = %%%SMTP_CRYPTO%%%;
+    $config['smtp_user'] = %%%SMTP_USER%%%;
+    $config['smtp_pass'] = %%%SMTP_PASS%%%;
+}

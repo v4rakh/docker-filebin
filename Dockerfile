@@ -2,8 +2,6 @@ FROM alpine:3
 
 LABEL maintainer="Varakh<varakh@varakh.de>"
 
-ENV FILEBIN_VERSION 3.4.1
-
 # Expose variables to ease overwriting
 ENV RECONFIGURE true
 ENV MIGRATE true
@@ -47,14 +45,23 @@ ENV SMALL_UPLOAD_SIZE 5120
 ENV TARBALL_MAX_SIZE 1073741824
 ENV TARBALL_CACHE_TIME 300
 ENV MAX_INVITATION_KEYS 3
+ENV SMTP_ENABLED false
+ENV SMTP_PROTOCOL 'smtp'
+ENV SMTP_HOST ''
+ENV SMTP_PORT 587
+ENV SMTP_CRYPTO 'tls'
+ENV SMTP_USER ''
+ENV SMTP_PASS ''
 
 # add script for database
 ADD src/wait-for.sh /wait-for.sh
 
+# add upstream application
+ADD build/ /var/www
+
 # install dependencies
 RUN chmod -x /wait-for.sh && \
     apk add --update --no-cache \
-        git \
         nginx \
         s6 \
         curl \
@@ -80,17 +87,13 @@ RUN chmod -x /wait-for.sh && \
         php7-pdo \
         php7-pdo_pgsql \
         php7-ctype \
-        php7-pdo_pgsql \
-        php7-mysqli \
         php7-mysqli \
         php7-pecl-memcached \
         memcached \
         ca-certificates && \
     rm -rf /var/cache/apk/* && \
     apk add gnu-libiconv --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ --allow-untrusted && \
-    rm -rf /var/www && \
-    # clone application and prepare www dir
-    git clone --branch ${FILEBIN_VERSION} https://github.com/Bluewind/filebin --depth=1 /var/www && \
+    # prepare www dir
     cp -r /var/www/application/config/example/* /var/www/application/config && \
     # set environments
     sed -i "s|;*memory_limit =.*|memory_limit = ${PHP_MEMORY_LIMIT}|i" /etc/php7/php.ini && \

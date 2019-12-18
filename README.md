@@ -57,6 +57,7 @@ There are two environment variables introduced by this image:
 
 * `RECONFIGURE`: If all defined environment should be re-applied to the provided `.tpl` files within the image. You probably want this to be `1` unless you mounted your `config/` folder on the host
 * `MIGRATE`: Calls FileBin database migration every time the container is started and updates dependencies via `composer`
+* `SMTP_ENABLE`: Set to `true` in order to enable sending mails via an external SMTP server, set to `false` to use PHP's internal mailer, see other `SMTP_` variables in the `Dockerfile`
 
 ### Setting up a nginx proxy
 
@@ -121,4 +122,21 @@ If you're using the provided `docker-compose.yml` file you probably can do somet
 docker exec filebin_db bash -c "/usr/bin/pg_dumpall -U fb|gzip -c > /filebin_db.sql.gz";
 docker cp filebin_db/:/var:/filebin_db.sql.gz /tmp/;
 docker exec filebin_db bash -c "rm /filebin_db.sql.gz";
+```
+
+## Building
+
+Steps:
+
+* Clone to local `build/` folder which is later added
+* Build image
+* Push to registry or use locally
+
+Example:
+
+```
+export FILEBIN_VERSION=3.4.1
+mkdir -p build
+git clone --branch ${FILEBIN_VERSION} https://github.com/Bluewind/filebin --depth=1 build/
+docker build -t varakh/filebin:${FILEBIN_VERSION} -t varakh/filebin:latest .
 ```

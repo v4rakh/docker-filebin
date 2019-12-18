@@ -19,7 +19,13 @@ if (getenv('RECONFIGURE') === "true") {
         'SMALL_UPLOAD_SIZE',
         'TARBALL_MAX_SIZE',
         'TARBALL_CACHE_TIME',
-        'MAX_INVITATION_KEYS'
+        'MAX_INVITATION_KEYS',
+        'SMTP_PROTOCOL',
+        'SMTP_HOST',
+        'SMTP_PORT',
+        'SMTP_CRYPTO',
+        'SMTP_USER',
+        'SMTP_PASS'
     ];
     contentsReplace($confVars, $confPath, $confTargetPath);
 
