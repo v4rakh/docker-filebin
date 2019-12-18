@@ -67,27 +67,33 @@ RUN chmod -x /wait-for.sh && \
         curl \
         python3 \
         py-pygments \
+        imagemagick \
+        ghostscript \
+        msmtp \
         composer \
         php7 \
-        php7-intl \
         php7-fpm \
         php7-cli \
+        php7-intl \
         php7-curl \
-        php7-fileinfo \
-        php7-mbstring \
-        php7-gd \
         php7-json \
         php7-dom \
         php7-pcntl \
         php7-posix \
-        php7-pgsql \
-        php7-exif \
         php7-mcrypt \
         php7-session \
+        php7-gd \
+        php7-exif \
+        php7-phar \
         php7-pdo \
+        php7-pgsql \
         php7-pdo_pgsql \
-        php7-ctype \
+        php7-pdo_mysql \
         php7-mysqli \
+        php7-fileinfo \
+        php7-mbstring \
+        php7-ctype \
+        php7-ldap \
         php7-pecl-memcached \
         memcached \
         ca-certificates && \
@@ -100,6 +106,7 @@ RUN chmod -x /wait-for.sh && \
     sed -i "s|;*upload_max_filesize =.*|upload_max_filesize = ${MAX_UPLOAD}|i" /etc/php7/php.ini && \
     sed -i "s|;*max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|i" /etc/php7/php.ini && \
     sed -i "s|;*post_max_size =.*|post_max_size = ${PHP_MAX_POST}|i" /etc/php7/php.ini && \
+    sed -i 's+.*sendmail_path =.*+sendmail_path = "/usr/bin/msmtp -C /var/www/msmtprc --logfile /var/www/msmtp.log -a filebinmail -t"+' /etc/php7/php.ini && \
     # clean up and permissions
     rm -rf /var/cache/apk/* && \
     ln -s /usr/bin/python3 /usr/bin/python && \
@@ -113,8 +120,10 @@ EXPOSE 80
 # add templates for replace env variables in the application
 ADD src/config/database.php.tpl /var/www/application/config/database.php.tpl
 ADD src/config/config-local.php.tpl /var/www/application/config/config-local.php.tpl
-ADD src/configure.php /configure.php
+ADD src/config/email.php.tpl /var/www/application/config/email.php.tpl
 ADD src/crontab /etc/periodic/15min/crontab
+ADD src/configure.php /configure.php
+ADD src/configure-mail.sh /var/www/configure-mail.sh
 
 # add overlay
 ADD src/s6/ /etc/s6/
