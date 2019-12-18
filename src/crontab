@@ -1,0 +1,4 @@
+#!/bin/sh
+
+/usr/bin/php /var/www/index.php file cron
+/usr/bin/php /var/www/index.php user cron
