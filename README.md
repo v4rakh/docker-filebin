@@ -2,7 +2,7 @@
 
 A docker image for [FileBin](https://github.com/Bluewind/filebin) to have it up and running in seconds.
 
-Visit project on [GitHub](https://github.com/v4rakh/docker-filebin).
+Visit project on [GitHub](https://github.com/v4rakh/docker-filebin) or [Docker Hub](https://hub.docker.com/r/varakh/filebin).
 
 ## Getting started
 
