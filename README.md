@@ -57,7 +57,7 @@ There are two environment variables introduced by this image:
 
 * `RECONFIGURE`: If all defined environment should be re-applied to the provided `.tpl` files within the image. You probably want this to be `1` unless you mounted your `config/` folder on the host
 * `MIGRATE`: Calls FileBin database migration every time the container is started and updates dependencies via `composer`
-* `SMTP_ENABLE`: Set to `true` in order to enable sending mails via an external SMTP server, set to `false` to use PHP's internal mailer, see other `SMTP_` variables in the `Dockerfile`
+* `SMTP_ENABLED`: Set to `true` in order to enable sending mails via an external SMTP server, set to `false` to use PHP's internal mailer, see other `SMTP_` variables in the `Dockerfile`
 
 ### Setting up a nginx proxy
 
