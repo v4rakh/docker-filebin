@@ -30,7 +30,7 @@ services:
       - DB_NAME=fb
       - DB_USER=fb
       - DB_PASS=fb
-      - ENCRYPTION_KEY=dHmFLZuoVRGZSadcRJZLfxIIYkSKNKnn # 32 character long sequence
+      - ENCRYPTION_KEY= # REQUIRED: set a 32 character long sequence
     volumes:
       - "./filebin_data:/var/www/data/uploads" # persist filebin data on the host
     stdin_open: true
