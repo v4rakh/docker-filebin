@@ -6,11 +6,11 @@ Visit project on [GitHub](https://github.com/v4rakh/docker-filebin).
 
 ## Getting started
 
-Recommended way is to use the example `docker-compose.yml` file and make yourself familiar with the environment variables which can be set. Defaults should do as a starting point.
+The easierst and recommended way to get started is to use the example `docker-compose.yml` file and make yourself familiar with the environment variables which can be set. Defaults should do as a starting point.
+
+_Be sure to read persisting volumes_ section and execute the required command.
 
 Default database is PostgreSQL. Other databases are supported and can be configured via exposed environment variables. Please refer to the original documentation of the application for further details. PHP modules for MySQL are included in the image.
-
-## Configuration
 
 After your database and the application docker container is up and running, add a first user by executing a command within the docker container:
 
@@ -96,7 +96,6 @@ server {
         proxy_set_header  X-Forwarded-Proto   $scheme;
         proxy_set_header  X-Frame-Options     SAMEORIGIN;
 
-        client_max_body_size        100m;
         client_body_buffer_size     128k;
 
         proxy_buffer_size           4k;
