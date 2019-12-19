@@ -120,7 +120,7 @@ If you're using the provided `docker-compose.yml` file you probably can do somet
 
 ```
 docker exec filebin_db bash -c "/usr/bin/pg_dumpall -U fb|gzip -c > /filebin_db.sql.gz";
-docker cp filebin_db/:/var:/filebin_db.sql.gz /tmp/;
+docker cp filebin_db:/filebin_db.sql.gz /tmp/;
 docker exec filebin_db bash -c "rm /filebin_db.sql.gz";
 ```
 
