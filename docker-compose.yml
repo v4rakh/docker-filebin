@@ -22,9 +22,9 @@ services:
     image: varakh/filebin:latest
     container_name: filebin_app
     ports:
-      - 181:80
+      - 127.0.0.1:181:80 # exposed port :80 mapped to :181 on only this host. 181 should then be used in proxy
     environment:
-      - BASE_URL=http://localhost:181/ # with trailing slash
+      - BASE_URL=https://fb.domain.tld/ # with trailing slash
       - DB_HOST=db
       - DB_PORT=5432
       - DB_NAME=fb
@@ -39,8 +39,3 @@ services:
     networks:
       - fb
     command: sh -c 'sh /wait-for.sh $$DB_HOST:$$DB_PORT -- php /configure.php && exec s6-svscan /etc/s6/'
-    healthcheck:
-        test: "nc -z localhost 80"
-        interval: 1s
-        timeout: 20s
-        retries: 20
