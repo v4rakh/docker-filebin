@@ -6,7 +6,7 @@ Visit project on [GitHub](https://github.com/v4rakh/docker-filebin) or [Docker H
 
 ## Getting started
 
-The easierst and recommended way to get started is to use the example `docker-compose.yml` file and make yourself familiar with the environment variables which can be set. Defaults should do as a starting point.
+The recommended way to get started is to use the example `docker-compose.yml` file and make yourself familiar with the environment variables which can be set. Defaults should do as a starting point.
 
 _Be sure to read persisting volumes_ section and execute the required command.
 
@@ -36,7 +36,7 @@ Application specific cron jobs are run every 15 minutes.
 ### Advanced configuration: customize non-exposed configuration variables
 
 If you need to make frequent changes or adapt configuration values which
-are not exposed as environment variables, you probably want have the `config-local.php` and `database.php` or the entire `config/` folder on the hosts file system.
+are not exposed as environment variables, you probably want the `config-local.php` and `database.php` or the entire `config/` folder on the hosts file system.
 
 In order to do so, first _extract_ the current configuration, e.g. by extracting only the required `.php` files or by extracting the entire `config/` folder. In this example we'll just use  entire folder.
 
