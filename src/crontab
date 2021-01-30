@@ -2,3 +2,4 @@
 
 /usr/bin/php /var/www/index.php file cron
 /usr/bin/php /var/www/index.php user cron
+/bin/echo "Executed crontab"

@@ -135,8 +135,8 @@ Steps:
 Example:
 
 ```
-export FILEBIN_VERSION=3.4.1
+export FILEBIN_VERSION=3.5.0
 mkdir -p build
 git clone --branch ${FILEBIN_VERSION} https://github.com/Bluewind/filebin --depth=1 build/
-docker build -t varakh/filebin:${FILEBIN_VERSION} -t varakh/filebin:latest .
+sudo docker build --no-cache -t varakh/filebin:${FILEBIN_VERSION} -t varakh/filebin:latest .
 ```
