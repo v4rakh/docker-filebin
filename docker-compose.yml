@@ -1,41 +1,41 @@
 version: "3"
 
 networks:
-  fb:
-    external: false
+    fb:
+        external: false
 
 services:
-  db:
-    image: postgres:11
-    container_name: filebin_db
-    environment:
-      - POSTGRES_PASSWORD=fb
-      - POSTGRES_USER=fb
-      - POSTGRES_DB=fb
-    volumes:
-      - ./filebin_db/:/var/lib/postgresql/data # persist postgres data on the host
-    restart: always
-    networks:
-      - fb
+    db:
+        image: postgres:11
+        container_name: filebin_db
+        environment:
+            - POSTGRES_PASSWORD=fb
+            - POSTGRES_USER=fb
+            - POSTGRES_DB=fb
+        volumes:
+            - ./filebin_db/:/var/lib/postgresql/data # persist postgres data on the host
+        restart: always
+        networks:
+            - fb
 
-  app:
-    image: varakh/filebin:latest
-    container_name: filebin_app
-    ports:
-      - 127.0.0.1:181:80 # exposed port :80 mapped to :181 on only this host. 181 should then be used in proxy
-    environment:
-      - BASE_URL=https://fb.domain.tld/ # with trailing slash
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=fb
-      - DB_USER=fb
-      - DB_PASS=fb
-      - ENCRYPTION_KEY= # REQUIRED: set a 32 character long sequence
-    volumes:
-      - "./filebin_data:/var/www/data/uploads" # persist filebin data on the host
-    stdin_open: true
-    tty: true
-    restart: always
-    networks:
-      - fb
-    command: sh -c 'sh /wait-for.sh $$DB_HOST:$$DB_PORT -- php /configure.php && exec s6-svscan /etc/s6/'
+    app:
+        image: varakh/filebin:latest
+        container_name: filebin_app
+        ports:
+            - 127.0.0.1:181:80 # exposed port :80 mapped to :181 on only this host. 181 should then be used in proxy
+        environment:
+            - BASE_URL=https://fb.domain.tld/ # with trailing slash
+            - DB_HOST=db
+            - DB_PORT=5432
+            - DB_NAME=fb
+            - DB_USER=fb
+            - DB_PASS=fb
+            - ENCRYPTION_KEY= # REQUIRED: set a 32 character long sequence
+        volumes:
+            - "./filebin_data:/var/www/data/uploads" # persist filebin data on the host
+        stdin_open: true
+        tty: true
+        restart: always
+        networks:
+            - fb
+        command: sh -c 'sh /wait-for.sh $$DB_HOST:$$DB_PORT -- php /configure.php && exec s6-svscan /etc/s6/'
